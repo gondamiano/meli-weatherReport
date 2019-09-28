@@ -1,0 +1,36 @@
+{
+  "name": "meli-challenge",
+  "engines": {
+    "node": "10.x.x"
+  },
+  "version": "1.0.0",
+  "description": "examen de ingreso para meli",
+  "main": "app.js",
+  "scripts": {
+    "tsc": "tsc",
+    "start": "node build/app.js",
+    "deploy": "gcloud app deploy",
+    "test": "mocha build/test/"
+  },
+  "author": "gonzalo damiano",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.1",
+    "@types/node-schedule": "^1.2.4",
+    "express": "^4.17.1",
+    "mysql": "^2.17.1",
+    "node-schedule": "^1.3.2",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.19",
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "mochai": "^0.2.5",
+    "nyc": "^14.1.1",
+    "ts-node": "^8.4.1"
+  }
+}

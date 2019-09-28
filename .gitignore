@@ -1,0 +1,8 @@
+node_modules
+.vscode
+coverage
+package-lock.json
+logger.log
+error.log
+.gcloudignore
+.nyc_output
