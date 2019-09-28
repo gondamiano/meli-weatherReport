@@ -21,5 +21,5 @@ $ git clone https://github.com/gondamiano/meli-weatherReport.git
 Test API
 
 ```sh
-[appEngine Server](https://meli-challenge-eu.appspot.com/)
+https://meli-challenge-eu.appspot.com/
 ```
