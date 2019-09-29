@@ -18,22 +18,25 @@ class weatherReportService {
     constructor() {
     }
     getWeather(day) {
-        this.repository = typeorm_1.getManager("server").getRepository(weatherReport_1.default);
-        const report = this.repository.findOne({
-            where: {
-                _day: day
+        return __awaiter(this, void 0, void 0, function* () {
+            this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
+            const report = yield this.repository.findOne({
+                select: ["_day", "weatherType"],
+                where: {
+                    _day: day
+                }
+            });
+            if (report != null || report != undefined) {
+                return report;
+            }
+            else {
+                throw new Error("No report for that specific day");
             }
         });
-        if (report != null) {
-            return report;
-        }
-        else {
-            throw new Error("No report for that specific day");
-        }
     }
     save(report) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.repository = typeorm_1.getManager("dev").getRepository(weatherReport_1.default).manager;
+            this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
             this.repository.save(report)
                 .then((result) => { return result; })
                 .catch((err) => { throw err; });

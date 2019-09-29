@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const weatherReportService_1 = __importDefault(require("../services/weatherReportService"));
-const logger_1 = __importDefault(require("../utils/logger"));
 class weatherController {
     constructor() {
         this.weatherService = weatherReportService_1.default;
@@ -25,10 +24,13 @@ class weatherController {
                 day = parseInt(day);
                 if (day > 0) {
                     try {
+                        console.log("entering services");
                         const report = yield weatherReportService_1.default.getWeather(day);
-                        res.send(JSON.stringify(report));
+                        const response = exports.WeatherController.generateReportForResponse(report);
+                        res.send(JSON.stringify(response));
                     }
                     catch (err) {
+                        console.log(err);
                         res.sendStatus(404);
                     }
                 }
@@ -42,10 +44,16 @@ class weatherController {
         reports.forEach(report => {
             let info = this.weatherService.save(report);
         });
-        logger_1.default.log("All reports were saved.");
+        console.log("All reports were saved.");
     }
     save(report) {
         this.weatherService.save(report);
     }
+    generateReportForResponse(report) {
+        if (report._day != undefined && report.weatherType != undefined)
+            return { dia: report._day, clima: report.weatherType };
+        else
+            throw Error;
+    }
 }
-exports.default = new weatherController();
+exports.WeatherController = new weatherController();

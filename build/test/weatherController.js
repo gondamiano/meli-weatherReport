@@ -8,18 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 require("mocha");
-const weatherController_1 = __importDefault(require("../controllers/weatherController"));
+const weatherController_1 = require("../controllers/weatherController");
 const express_1 = require("express");
 describe("Testing weather controller", function () {
     it("should return Error for undefined query", function () {
         return __awaiter(this, void 0, void 0, function* () {
-            let err = yield weatherController_1.default.getWeatherByDay(express_1.request, express_1.response);
+            let err = yield weatherController_1.WeatherController.getWeatherByDay(express_1.request, express_1.response);
             chai_1.expect(err).to.instanceOf(Error);
         });
     });

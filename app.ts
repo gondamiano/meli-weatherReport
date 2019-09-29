@@ -1,53 +1,26 @@
 'use strict'
 
 import express from 'express';
+var agent = require('@google-cloud/debug-agent').start();
 var server = express();
 import "reflect-metadata";
-import {createConnection} from 'typeorm';
-import {Request, Response} from 'express';
-import Logger from './utils/logger'
-import WeatherReport from "./models/weatherReport";
-import weatherTypes from "./models/weatherTypes";
-import WeatherController from './controllers/weatherController';
-import solarSystem from "./models/solarSystem";
-import { log } from "util";
-import bodyParser from 'body-parser';
+import {WeatherController} from './controllers/weatherController';
+import { createConnection } from 'typeorm';
 
-server.use(bodyParser.json());
+const PORT = process.env.PORT || 8080;
 
-const PORT = process.env.PORT || 8090;
-
-server.get('/img' , (req, res) => {
-    res.send("Aca");
-})
 
 server.get('/', (req :any, res: any) => {
     res.send('hello world');
-})
+});
 
 server.get('/clima', WeatherController.getWeatherByDay);
 
-createConnection({
-    name: "server",
-    type: "mysql",
-    host: "localhost",
-    port: 3306,
-    username: "root",
-    password: "localhost",
-    database: "sampledb",
-    entities: [WeatherReport]
-  }).then(connection => {
-    server.listen(8080, () => {        
-        console.log(connection);
-        console.log('====================================');
-        console.log("aca esamos piola");
-        
+createConnection().then(conn => {        
+    console.log("Connection to database succesfull");    
+    server.listen(PORT, function() {
+        console.log(`Server listen at ${PORT} port`);        
     })
-}).catch(err => {
-    Logger.log('error', err.toString());
-})
-
-
-server.listen(PORT, function() {
-    console.log("Listen port");
-});
+}).catch((err) => {
+    console.log("Application couldn't connect to database");
+});    

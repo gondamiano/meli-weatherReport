@@ -1,5 +1,5 @@
 import weatherReport from '../models/weatherReport';
-import {getManager} from 'typeorm';
+import {getManager, getConnection} from 'typeorm';
 import weatherTypes from '../models/weatherTypes';
 
 class weatherReportService {
@@ -8,14 +8,16 @@ class weatherReportService {
 
     }
 
-    getWeather(day : number) {
-        this.repository = getManager("server").getRepository(weatherReport);
-            const report = this.repository.findOne({
+    async getWeather(day : number) {
+        this.repository = getConnection().getRepository(weatherReport);
+            const report = await this.repository.findOne({
+                select: ["_day", "weatherType"],
                  where: {
                     _day: day
                 }
             });
-            if(report != null) {
+
+            if(report != null || report != undefined) {
                 return report;
             }
             else {
@@ -24,7 +26,7 @@ class weatherReportService {
     }
 
     async save(report : weatherReport) {
-        this.repository = getManager("dev").getRepository(weatherReport).manager;
+        this.repository = getConnection().getRepository(weatherReport);
         this.repository.save(report)
             .then((result : any) => {return result})
             .catch((err : any) => {throw err;});

@@ -89,11 +89,11 @@ class solarSystem {
 typeorm_1.createConnection({
     name: "dev",
     type: "mysql",
-    host: "localhost",
-    port: 3306,
+    host: "127.0.0.1",
+    port: 3366,
     username: "root",
-    password: "localhost",
-    database: "sampledb",
+    password: "root",
+    database: "weatherReport",
     entities: [weatherReport_1.default]
 }).then(connection => {
     let a = new solarSystem();

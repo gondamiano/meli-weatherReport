@@ -6,3 +6,5 @@ logger.log
 error.log
 .gcloudignore
 .nyc_output
+config.json
+ormconfig.json

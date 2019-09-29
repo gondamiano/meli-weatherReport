@@ -82,11 +82,11 @@ class solarSystem {
 createConnection({
     name: "dev",
     type: "mysql",
-    host: "localhost",
-    port: 3306,
+    host: "127.0.0.1",
+    port: 3366,
     username: "root",
-    password: "localhost",
-    database: "sampledb",
+    password: "root",
+    database: "weatherReport",
     entities: [WeatherReport]
   }).then(connection => {      
     let a = new solarSystem();
