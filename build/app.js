@@ -9,12 +9,19 @@ var server = express_1.default();
 require("reflect-metadata");
 const weatherController_1 = require("./controllers/weatherController");
 const typeorm_1 = require("typeorm");
+const solarSystem_1 = __importDefault(require("./models/solarSystem"));
 const PORT = process.env.PORT || 8080;
-server.get('/img', (req, res) => {
-    res.send("Aca");
-});
 server.get('/', (req, res) => {
     res.send('hello world');
+});
+server.get('/predict', (req, res) => {
+    const result = solarSystem_1.default.startPrediction(10);
+    if (result) {
+        res.send("OK");
+    }
+    else {
+        res.send("FAIL");
+    }
 });
 server.get('/clima', weatherController_1.WeatherController.getWeatherByDay);
 typeorm_1.createConnection().then(conn => {

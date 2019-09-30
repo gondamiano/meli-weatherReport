@@ -18,8 +18,8 @@ class reportGenerator {
     }
 
     show() {
-        Logger.log("info","Report created succesfully.");
-        Logger.log(JSON.stringify(this.periodAmount));
+        console.log("info","Report created succesfully.");
+        console.log(JSON.stringify(this.periodAmount));
     }
 
     fill(data : WeatherReport) {
