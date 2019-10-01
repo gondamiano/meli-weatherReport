@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const weatherTypes_1 = __importDefault(require("./weatherTypes"));
 const typeorm_1 = require("typeorm");
+//// Weather report model
 let WeatherReport = class WeatherReport {
     constructor() {
         this.day = 0;

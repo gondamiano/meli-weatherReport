@@ -1,9 +1,6 @@
 'use strict'
 
 import express, { Request, Response } from 'express';
-
-////  depurador para app engine
-var agent = require('@google-cloud/debug-agent').start();
 var server = express();
 import "reflect-metadata";
 import {WeatherController} from './src/controllers/weatherController';
@@ -22,6 +19,8 @@ server.get('/clima', WeatherController.getWeatherByDay);
 //// devuelve el reporte de los periodos
 server.get('/report', ReportController.getFinalReport);
 
+/// para que el schedule job sea testeado
+server.get('/run', predictionJob.run);
 
 createConnection().then(conn => {        
     console.log("successful Database Connection");    

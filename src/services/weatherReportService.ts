@@ -37,8 +37,7 @@ class weatherReportService {
     }
 
     //// insert or update de todos los reportes a la vez.
-    async saveAll(reports : Array<weatherReport>) {
-        console.log("estamos aca : " + reports.length);
+    async saveAll(reports : Array<weatherReport>) {        
         this.repository = getConnection().getRepository(weatherReport);
         this.repository.save(reports)
             .then((result : any) => {return result})
