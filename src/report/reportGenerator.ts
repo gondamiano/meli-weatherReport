@@ -1,4 +1,3 @@
-import Logger from '../utils/logger'
 import WeatherReport from '../models/weatherReport';
 import Report from '../models/report';
 import WeatherTypes from '../models/weatherTypes'
@@ -6,6 +5,7 @@ import weatherTypes from '../models/weatherTypes';
 import reportService from '../services/reportService';
 
 
+/// Genera los reportes finales de periodos y los guarda en la base
 class reportGenerator {
     reports: Array<Report> = new Array;    
 

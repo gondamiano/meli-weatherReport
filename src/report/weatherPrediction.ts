@@ -4,6 +4,7 @@ import weatherTypes from "../models/weatherTypes";
 import WeatherReport from "../models/weatherReport";
 
 
+//// Predice el clima utilizando functiones de calculos de la carpeta /utils
 class WeatherPrediction {
 
     static predict(planets : Planet[], sunX: number, sunY : number) : WeatherReport {
@@ -11,9 +12,10 @@ class WeatherPrediction {
             let A : Planet, B : Planet, C : Planet;        
             [A, B, C] = planets;
             const weatherReport : WeatherReport = new WeatherReport();
-            // check if the planets are align in straigth line
+            // chequeamos si los planetas estan alineados con la formula Heron
             if(!heronFormula(A.x, A.y, B.x, B.y , C.x, C.y)) {
-                //// if the three points form a straigth line, we check if the sun is align to.
+                //// si los tres planetas estan alineados, chequeamos si el sol tambien
+                //// se encuentra alineado a los planetas.
                 if(!heronFormula(A.x, A.y, B.x, B.y , sunX, sunY)) {                    
                     weatherReport.setWeatherType(weatherTypes.DROUGHT);                    
                 }
@@ -21,12 +23,14 @@ class WeatherPrediction {
                     weatherReport.setWeatherType(weatherTypes.OPTIMUM);                    
                 }
             }
-            /// calculate the perimeter and check if the sun is inside
+            /// Si los planetas no estan alineados, chequeamos si el perimetro formado
+            /// por los planetas contienen al sol.
             else if(checkSunInsideTriangle(A, B, C , sunX, sunY)){                
-                    let perimeter = calculateTrianglePerimeter(A, B, C, sunX, sunY);
+                    let perimeter = calculateTrianglePerimeter(A, B, C);
                     weatherReport.setWeatherTypeAndPerimeter(weatherTypes.RAINY, perimeter);
                     weatherReport;
             } 
+            //// Si no cumple ninguna regla, seteamos indefinido
             else {
                 weatherReport.setWeatherType(weatherTypes.UNDEFINED);
             }
@@ -35,6 +39,7 @@ class WeatherPrediction {
         throw new Error("the quantity and / or information of the planets is incorrect");
     }
 
+    /// validamos los planetas
     private static validateArguments(planets : Planet[]) {
         if(planets !== null && planets.length === 3) {
             return true;

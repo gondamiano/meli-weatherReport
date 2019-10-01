@@ -5,11 +5,12 @@ import WeatherPrediction from '../report/weatherPrediction'
 import reportGenerator from '../report/reportGenerator'
 import weatherReportService from '../services/weatherReportService'
 
+//// solar system class
 class solarSystem {    
     planets!: Array<Planet>
-    readonly x : number = 0
-    readonly y : number = 0
-    private days_year : number = 360
+    readonly x : number = 0;
+    readonly y : number = 0;
+    private days_year : number = 360;   /// cantidad de dias en un año
     public actualDays : number = 0;
     
     get days_per_year() { 
@@ -22,6 +23,8 @@ class solarSystem {
         }        
     }
 
+    //// Comenzamos la prediccion para los proximos años, que se ingresan como parametro.
+    //// retorna true si logro calcular y guardar los diferentes reportes en la base de datos. 
     startPrediction (years: number) : boolean {
         this.actualDays = 1;
         this.addPlanets(getBetasoide(), getFerengi(), getVulcano())        
@@ -29,22 +32,24 @@ class solarSystem {
         let totalDays : number = years * this.days_per_year;
         const reports : Array<WeatherReport> = new Array<WeatherReport>();
 
-        for(let i = 0; i < totalDays; i++) {            
+        for(let i = 0; i < totalDays; i++) {
+            /// utilizamos el servicio de prediccion pasando los planetas y la posicion del sol como parametro
             const result : WeatherReport = WeatherPrediction.predict(this.planets, this.x, this.y);
             result. day = this.actualDays++;      
             reports.push(result);
             this.planets.forEach(i => i.move()); 
         }        
-
+        
         this.saveReports(reports)        
         .catch(err => {
             console.log(err.toString());
             return false;
-        });
-        console.log("Bestial");
+        });        
         return true;
     }
 
+    //// calculamos el maximo perimetro posible entre los reportes generados
+    //// guardamos en la base los reportes por periodos y diarios.
     async saveReports(result : Array<WeatherReport>) {
         try {            
             let maxPerimeter = Math.max.apply(Math, result.map((i) => {

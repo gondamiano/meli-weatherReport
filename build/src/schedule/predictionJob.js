@@ -14,7 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const solarSystem_1 = __importDefault(require("../models/solarSystem"));
 const weatherReportService_1 = __importDefault(require("../services/weatherReportService"));
+//// clase para correr el schedule job
 class predictionJob {
+    //// debido a que app engine no tiene opcion de setear un schedule cada 10 años ,(el maximo es 1 al año)
+    //// esta funcion compara entre la fecha de la ultima prediccion con la fecha actual
     calculate(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let report = yield weatherReportService_1.default.getLastUpdate();

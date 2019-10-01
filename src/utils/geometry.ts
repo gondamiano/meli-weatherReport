@@ -1,6 +1,7 @@
 import Planet from "../models/planet";
 import { getBetasoide, getVulcano, getFerengi } from "../dummy/planetDummy";
 
+//// retorna true si los tres puntos estan alineados
 function isStraightLine(A_x : number, A_y : number, B_x : number, B_y : number, C_x : number, C_y : number) {
     let area : number = calculateArea(A_x, A_y, B_x, B_y, C_x, C_y);
     if(area === 0) {
@@ -9,6 +10,7 @@ function isStraightLine(A_x : number, A_y : number, B_x : number, B_y : number, 
     else return false;
 }
 
+//// heron formula para calcular el area
 function heronFormula(A_x : number, A_y : number, B_x : number, B_y : number, C_x : number, C_y : number) {
     let distanceAB : number = Math.pow((A_x - B_x), 2) + Math.pow((A_y - B_y), 2);
     let distanceBC : number = Math.pow((B_x - C_x), 2) + Math.pow((B_y - C_y), 2);
@@ -21,10 +23,12 @@ function heronFormula(A_x : number, A_y : number, B_x : number, B_y : number, C_
     return result;
 }
 
+//// otra forma de calcular el area 
 function calculateArea(A_x : number, A_y : number, B_x : number, B_y : number, C_x : number, C_y : number) {
     let area : number = (A_x * (B_y - C_y) + B_x * (C_y - A_y) + C_x * (A_y - B_y))/2;
     return Math.abs(area);
 }
+
 
 function checkSunInsideTriangle(A : Planet, B : Planet, C : Planet, sunX : number, sunY : number) {
     let triangleArea = calculateArea(A.x, A.y, B.x, B.y, C.x, C.y);
@@ -36,26 +40,18 @@ function checkSunInsideTriangle(A : Planet, B : Planet, C : Planet, sunX : numbe
     return sunArea === triangleArea ?  true :  false
 }
 
-function calculateTrianglePerimeter(A : Planet, B : Planet, C : Planet, sunX : number, sunY : number) {    
+//// retorna el permietro de los tres planetas utilizando la distancia entre ellos 
+function calculateTrianglePerimeter(A : Planet, B : Planet, C : Planet) {    
     let d1 : number = A.getDistance(B);
     let d2 : number = B.getDistance(C);
     let d3 : number = C.getDistance(A);
     return (d1 + d2 + d3);
 }
 
+//// fixed input con dos decimales
 function fixed(input : number) {
     return parseFloat(input.toFixed(2));
 }
 
 
 export {isStraightLine, checkSunInsideTriangle, calculateTrianglePerimeter, heronFormula};
-
-
-//let array : Planet[] = [getBetasoide() , getVulcano(), getFerengi()];
-if(checkSunInsideTriangle(getBetasoide(), getVulcano(), getFerengi(), 0, 0)) {
-    console.log("piola");
-}
-else {
-    console.log("malazo");
-    
-}

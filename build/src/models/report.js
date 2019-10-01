@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+/// Report entity utilizando typeorm como orm para la comunicacion de mysql a traves de typescript
 let Report = class Report {
     constructor() {
         this.periodAmount = 0;

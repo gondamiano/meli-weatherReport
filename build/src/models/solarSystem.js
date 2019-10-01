@@ -16,11 +16,12 @@ const planetDummy_1 = require("../dummy/planetDummy");
 const weatherPrediction_1 = __importDefault(require("../report/weatherPrediction"));
 const reportGenerator_1 = __importDefault(require("../report/reportGenerator"));
 const weatherReportService_1 = __importDefault(require("../services/weatherReportService"));
+//// solar system class
 class solarSystem {
     constructor() {
         this.x = 0;
         this.y = 0;
-        this.days_year = 360;
+        this.days_year = 360; /// cantidad de dias en un año
         this.actualDays = 0;
     }
     get days_per_year() {
@@ -31,6 +32,8 @@ class solarSystem {
             this.planets = [...planets];
         }
     }
+    //// Comenzamos la prediccion para los proximos años, que se ingresan como parametro.
+    //// retorna true si logro calcular y guardar los diferentes reportes en la base de datos. 
     startPrediction(years) {
         this.actualDays = 1;
         this.addPlanets(planetDummy_1.getBetasoide(), planetDummy_1.getFerengi(), planetDummy_1.getVulcano());
@@ -38,6 +41,7 @@ class solarSystem {
         let totalDays = years * this.days_per_year;
         const reports = new Array();
         for (let i = 0; i < totalDays; i++) {
+            /// utilizamos el servicio de prediccion pasando los planetas y la posicion del sol como parametro
             const result = weatherPrediction_1.default.predict(this.planets, this.x, this.y);
             result.day = this.actualDays++;
             reports.push(result);
@@ -48,9 +52,10 @@ class solarSystem {
             console.log(err.toString());
             return false;
         });
-        console.log("Bestial");
         return true;
     }
+    //// calculamos el maximo perimetro posible entre los reportes generados
+    //// guardamos en la base los reportes por periodos y diarios.
     saveReports(result) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

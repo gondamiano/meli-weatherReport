@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const report_1 = __importDefault(require("../models/report"));
 const weatherTypes_1 = __importDefault(require("../models/weatherTypes"));
 const reportService_1 = __importDefault(require("../services/reportService"));
+/// Genera los reportes finales de periodos y los guarda en la base
 class reportGenerator {
     constructor() {
         this.reports = new Array;

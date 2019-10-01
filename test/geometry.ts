@@ -2,11 +2,11 @@ import {expect} from 'chai';
 import 'mocha';
 import weatherTypes from '../src/models/weatherTypes';
 import { isStraightLine, heronFormula } from '../src/utils/geometry';
-import { getPlanetArrayForDrought, getPlanetArrayForRain } from '../src/dummy/planetDummy';
+import { DummyPlanet } from '../src/dummy/planetDummy';
 
 describe('Testing geometry', function() {
     it('Should return true for straigth line with the sun', function() {
-        let res = getPlanetArrayForDrought();
+        let res = DummyPlanet.getPlanetArrayForDrought();
         let [A,B,C] = res;
         let result = heronFormula(A.x, A.y, B.x, B.y, C.x, C.y);
         let result2 = heronFormula(A.x, A.y, B.x, B.y, 0, 0);
@@ -16,7 +16,7 @@ describe('Testing geometry', function() {
         //expect(result).to.be.true;
     });
     it("should return True for area != 0", function() {
-        let arr = getPlanetArrayForRain();
+        let arr = DummyPlanet.getPlanetArrayForRain();
         let [A,B,C] = arr;
         let result = heronFormula(A.x, A.y, B.x, B.y, C.x, C.y);        
         expect(result).not.be.equal(0);

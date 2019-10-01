@@ -1,13 +1,13 @@
 import solarSystem from '../models/solarSystem';
-import { createConnection } from 'typeorm';
 import WeatherReport from '../models/weatherReport';
 import { Request, Response } from 'express';
 import weatherReportService from '../services/weatherReportService';
-import { isDate } from 'util';
 
+//// clase para correr el schedule job
 class predictionJob {
 
-
+    //// debido a que app engine no tiene opcion de setear un schedule cada 10 años ,(el maximo es 1 al año)
+    //// esta funcion compara entre la fecha de la ultima prediccion con la fecha actual
     async calculate(req: Request, res: Response) {
         let report = await weatherReportService.getLastUpdate();
         if(report != undefined && predictionJob.isTheRightTime(report))  {            
@@ -27,6 +27,7 @@ class predictionJob {
         }        
     }
 
+    
     static isTheRightTime(report : WeatherReport) {
         let date : Date = report.updated_date;
         let actualDate : Date = new Date;

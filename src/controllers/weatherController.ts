@@ -6,7 +6,7 @@ class weatherController {
 
     private weatherService = weatherReportService;
     
-
+    //// devuelve el clima del dia especificado
     async getWeatherByDay(req: Request, res: Response) {
         if(req.query && req.query.dia) {        
             let day = req.query.dia;
@@ -25,10 +25,11 @@ class weatherController {
             return res.sendStatus(400);
         }
         else {
-            return new Error("missing query");
+            res.send(new Error("missing query"));
         }
     }
 
+    //// guarda array de weatherReport entity
     saveReports(reports : Array<WeatherReport>) {
         reports.forEach(report => {
             let info = this.weatherService.save(report);
@@ -36,10 +37,7 @@ class weatherController {
         console.log("All reports were saved.");
     }
 
-    save(report: WeatherReport) {
-        this.weatherService.save(report);
-    }
-
+    //// genera el formato especifico de respuesta
     generateReportForResponse(report : any) {
         if(report.day != undefined && report.weatherType != undefined) 
             return {dia: report.day, clima: report.weatherType};

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const planetDummy_1 = require("../dummy/planetDummy");
+//// retorna true si los tres puntos estan alineados
 function isStraightLine(A_x, A_y, B_x, B_y, C_x, C_y) {
     let area = calculateArea(A_x, A_y, B_x, B_y, C_x, C_y);
     if (area === 0) {
@@ -10,6 +10,7 @@ function isStraightLine(A_x, A_y, B_x, B_y, C_x, C_y) {
         return false;
 }
 exports.isStraightLine = isStraightLine;
+//// heron formula para calcular el area
 function heronFormula(A_x, A_y, B_x, B_y, C_x, C_y) {
     let distanceAB = Math.pow((A_x - B_x), 2) + Math.pow((A_y - B_y), 2);
     let distanceBC = Math.pow((B_x - C_x), 2) + Math.pow((B_y - C_y), 2);
@@ -22,6 +23,7 @@ function heronFormula(A_x, A_y, B_x, B_y, C_x, C_y) {
     return result;
 }
 exports.heronFormula = heronFormula;
+//// otra forma de calcular el area 
 function calculateArea(A_x, A_y, B_x, B_y, C_x, C_y) {
     let area = (A_x * (B_y - C_y) + B_x * (C_y - A_y) + C_x * (A_y - B_y)) / 2;
     return Math.abs(area);
@@ -36,20 +38,15 @@ function checkSunInsideTriangle(A, B, C, sunX, sunY) {
     return sunArea === triangleArea ? true : false;
 }
 exports.checkSunInsideTriangle = checkSunInsideTriangle;
-function calculateTrianglePerimeter(A, B, C, sunX, sunY) {
+//// retorna el permietro de los tres planetas utilizando la distancia entre ellos 
+function calculateTrianglePerimeter(A, B, C) {
     let d1 = A.getDistance(B);
     let d2 = B.getDistance(C);
     let d3 = C.getDistance(A);
     return (d1 + d2 + d3);
 }
 exports.calculateTrianglePerimeter = calculateTrianglePerimeter;
+//// fixed input con dos decimales
 function fixed(input) {
     return parseFloat(input.toFixed(2));
-}
-//let array : Planet[] = [getBetasoide() , getVulcano(), getFerengi()];
-if (checkSunInsideTriangle(planetDummy_1.getBetasoide(), planetDummy_1.getVulcano(), planetDummy_1.getFerengi(), 0, 0)) {
-    console.log("piola");
-}
-else {
-    console.log("malazo");
 }
