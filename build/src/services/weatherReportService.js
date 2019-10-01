@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const weatherReport_1 = __importDefault(require("../models/weatherReport"));
 const typeorm_1 = require("typeorm");
 const weatherTypes_1 = __importDefault(require("../models/weatherTypes"));
+//// weather service
 class weatherReportService {
     constructor() {
     }
+    //// SELECT del clima para el dia especifico
     getWeather(_day) {
         return __awaiter(this, void 0, void 0, function* () {
             this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
@@ -36,6 +38,7 @@ class weatherReportService {
             }
         });
     }
+    //// insert or update de un reporte
     save(report) {
         return __awaiter(this, void 0, void 0, function* () {
             this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
@@ -44,6 +47,7 @@ class weatherReportService {
                 .catch((err) => { throw err; });
         });
     }
+    //// insert or update de todos los reportes a la vez.
     saveAll(reports) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("estamos aca : " + reports.length);
@@ -53,6 +57,7 @@ class weatherReportService {
                 .catch((err) => { throw err; });
         });
     }
+    //// select de la ultima fecha de ejecucion del show
     getLastUpdate() {
         return __awaiter(this, void 0, void 0, function* () {
             this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
@@ -65,6 +70,7 @@ class weatherReportService {
             return date;
         });
     }
+    //// select de los dias con lluvia intensa
     getHeavyRainyDays() {
         return __awaiter(this, void 0, void 0, function* () {
             this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);

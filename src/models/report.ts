@@ -1,6 +1,7 @@
 import weatherTypes from "./weatherTypes";
 import {Entity, Column, PrimaryColumn} from 'typeorm';
 
+/// Report entity utilizando typeorm como orm para la comunicacion de mysql a traves de typescript
 @Entity()
 class Report {
     

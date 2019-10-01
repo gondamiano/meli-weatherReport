@@ -18,6 +18,7 @@ class reportController {
     constructor() {
         this.reportService = reportService_1.default;
     }
+    //// devuelve el reporte de periodos con los dias de lluvia intensa
     getFinalReport(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let reports = yield reportService_1.default.getAll();

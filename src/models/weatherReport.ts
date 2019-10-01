@@ -1,6 +1,7 @@
 import weatherTypes from "./weatherTypes";
 import {Entity, Column, PrimaryColumn} from 'typeorm';
 
+//// Weather report model
 @Entity()
 class WeatherReport {        
     

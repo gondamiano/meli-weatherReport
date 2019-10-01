@@ -1,3 +1,4 @@
+//// planet model
 class Planet {
     constructor(name : string, angleSpeed: number, radius: number) {
         this._angleSpeed = angleSpeed;
@@ -44,18 +45,21 @@ class Planet {
         //this._y = Math.round(val);
     }
 
+    /// devuelve la distancia del planeta con respecto a otro que se pasa como parametro
     getDistance(planet : Planet) {
         let distance : number = Math.pow((planet.x - this.x), 2) + Math.pow((this.y - planet.y), 2)
         distance = Math.sqrt(distance);
         return Math.round(distance);
     }
 
+    /// setea el eje cartesiano del planeta
     setCartesianPosition() {
-        /// convert the angles in radians
+        /// utilizamos el angulo de posicion en radianes 
         this.x = Math.cos(this.anglePosition*(Math.PI/180)) * this.radius;
         this.y = Math.sin(this.anglePosition*(Math.PI/180)) * this.radius;
     }
 
+    /// realiza el movimiento del planeta y modificamos el angulo.
     move() {
         this.anglePosition = this.anglePosition + this.angleSpeed;
         if(Math.abs(this.anglePosition) >= 360) {

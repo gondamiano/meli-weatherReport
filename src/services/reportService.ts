@@ -3,7 +3,9 @@ import {getManager, getConnection, Repository} from 'typeorm';
 import weatherTypes from '../models/weatherTypes';
 import Report from '../models/report';
 
-class weatherReportService {
+
+//// Report Service utilizando typeorm
+class ReportService {
     repository !: Repository<Report>;
     constructor() {
 
@@ -34,4 +36,4 @@ class weatherReportService {
 
 }
 
-export default new weatherReportService();
+export default new ReportService();

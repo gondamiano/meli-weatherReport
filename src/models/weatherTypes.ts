@@ -1,3 +1,4 @@
+//// enum con los tipos de climas establecidos
 enum weatherTypes {
     DROUGHT = "Sequía",
     OPTIMUM = "Óptimo",
