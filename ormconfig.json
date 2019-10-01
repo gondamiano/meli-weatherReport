@@ -2,11 +2,11 @@
   "name": "default",
   "type": "mysql",
 
-  "host": "localhost",
-  "port": 3306,
-  "username": "root",
-  "password": "localhost",
-  "database": "sampledb",
+  "host": "HOST",
+  "PORT": 3306,
+  "username": "USERNAME",
+  "password": "PASSWORD",
+  "database": "DATABASE",
 
   "synchronize": true,
   "logging": false,
