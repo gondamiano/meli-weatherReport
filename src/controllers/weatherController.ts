@@ -15,11 +15,11 @@ class weatherController {
                 try {                                        
                     const report : any = await weatherReportService.getWeather(day);                    
                     const response = WeatherController.generateReportForResponse(report);
-                    res.send(JSON.stringify(response));
+                    return res.send(JSON.stringify(response));
                 }
                 catch(err) {
                     console.log(err);
-                    res.send(err);
+                    return res.send(err);
                 }
             }
             return res.sendStatus(400);
