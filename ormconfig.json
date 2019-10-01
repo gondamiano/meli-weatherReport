@@ -1,15 +1,14 @@
 {
   "name": "default",
   "type": "mysql",
-  "extra": {
-    "socketPath": "/cloudsql/meli-challenge-eu:europe-west2:meli-challenge-db2"
-  },
-  "username": "root",
-  "password": "root",
-  "database": "weatherReport",
+  "host": "HOST",
+  "PORT": 3306,
+  "username": "USERNAME",
+  "password": "PASSWORD",
+  "database": "DATABASE",
   "synchronize": true,
   "logging": false,
   "entities": [
-    "./build/models/**.js"
+    "./build/src/models/**.js"
   ]
 }
