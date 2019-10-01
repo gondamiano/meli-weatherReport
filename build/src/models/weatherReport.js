@@ -12,19 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const weatherTypes_1 = __importDefault(require("../models/weatherTypes"));
+const weatherTypes_1 = __importDefault(require("./weatherTypes"));
 const typeorm_1 = require("typeorm");
 let WeatherReport = class WeatherReport {
     constructor() {
-        this._day = 0;
+        this.day = 0;
         this.maximumRain = false;
         this.perimeter = 0;
-    }
-    set day(val) {
-        this._day = val;
-    }
-    get day() {
-        return this._day;
+        this.updated_date = new Date();
     }
     setWeatherType(weatherType) {
         this.weatherType = weatherType;
@@ -41,7 +36,7 @@ let WeatherReport = class WeatherReport {
 __decorate([
     typeorm_1.PrimaryColumn(),
     __metadata("design:type", Number)
-], WeatherReport.prototype, "_day", void 0);
+], WeatherReport.prototype, "day", void 0);
 __decorate([
     typeorm_1.Column(),
     __metadata("design:type", String)
@@ -54,6 +49,10 @@ __decorate([
     typeorm_1.Column('double'),
     __metadata("design:type", Number)
 ], WeatherReport.prototype, "perimeter", void 0);
+__decorate([
+    typeorm_1.Column("datetime"),
+    __metadata("design:type", Date)
+], WeatherReport.prototype, "updated_date", void 0);
 WeatherReport = __decorate([
     typeorm_1.Entity()
 ], WeatherReport);

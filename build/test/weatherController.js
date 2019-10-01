@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 require("mocha");
-const weatherController_1 = require("../controllers/weatherController");
+const weatherController_1 = require("../src/controllers/weatherController");
 const express_1 = require("express");
 describe("Testing weather controller", function () {
     it("should return Error for undefined query", function () {

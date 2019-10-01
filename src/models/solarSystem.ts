@@ -10,7 +10,7 @@ class solarSystem {
     readonly x : number = 0
     readonly y : number = 0
     private days_year : number = 360
-    public actualDays : number = 1;
+    public actualDays : number = 0;
     
     get days_per_year() { 
         return this.days_year; 
@@ -23,7 +23,7 @@ class solarSystem {
     }
 
     startPrediction (years: number) : boolean {
-        console.clear()
+        this.actualDays = 1;
         this.addPlanets(getBetasoide(), getFerengi(), getVulcano())        
         console.log(`Start prediction and the creating of the report for the next ${years} `)
         let totalDays : number = years * this.days_per_year;
@@ -31,19 +31,17 @@ class solarSystem {
 
         for(let i = 0; i < totalDays; i++) {            
             const result : WeatherReport = WeatherPrediction.predict(this.planets, this.x, this.y);
-            result.day = this.actualDays++;
-            if(result.day == 815) {
-                debugger;
-            }            
-            reportGenerator.fill(result);
+            result. day = this.actualDays++;      
+            reports.push(result);
             this.planets.forEach(i => i.move()); 
-        }
+        }        
 
         this.saveReports(reports)        
         .catch(err => {
             console.log(err.toString());
             return false;
         });
+        console.log("Bestial");
         return true;
     }
 
@@ -54,15 +52,15 @@ class solarSystem {
             }));
             let rainyDay = result.find(i => i.perimeter === maxPerimeter);
             (rainyDay !== undefined) ? rainyDay.maximumRain = true : false;
-            let DBresponse = result.map(async report => {
+            let finalReport = await result.map(async report => {
                 if(report.perimeter === maxPerimeter) {
                     report.setHeavyRain();
-                }
-                weatherReportService.save(report).catch((err) => 
-                {                                     
-                    console.log("Saving report function fail. try again");                   
-                });
-            })
+                }                               
+            });
+            weatherReportService.saveAll(result).catch((err) => {
+                return err;
+            }) 
+            reportGenerator.createFinalReport(result);
         }
         catch(err) {                
                 throw new Error("Error at saving reports");            

@@ -12,18 +12,17 @@ class weatherController {
             let day = req.query.dia;
             day = parseInt(day);            
             if(day > 0) {
-                try {
-                    console.log("entering services");
-                    
+                try {                                        
                     const report : any = await weatherReportService.getWeather(day);                    
                     const response = WeatherController.generateReportForResponse(report);
                     res.send(JSON.stringify(response));
                 }
                 catch(err) {
                     console.log(err);
-                    res.sendStatus(404);
+                    res.send(err);
                 }
             }
+            return res.sendStatus(400);
         }
         else {
             return new Error("missing query");
@@ -42,8 +41,8 @@ class weatherController {
     }
 
     generateReportForResponse(report : any) {
-        if(report._day != undefined && report.weatherType != undefined) 
-            return {dia: report._day, clima: report.weatherType};
+        if(report.day != undefined && report.weatherType != undefined) 
+            return {dia: report.day, clima: report.weatherType};
         else throw Error;
     }
 

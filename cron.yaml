@@ -1,0 +1,4 @@
+cron:
+- description: "Prediction Job"
+  url: /predict
+  schedule: 1 of jan 00:00

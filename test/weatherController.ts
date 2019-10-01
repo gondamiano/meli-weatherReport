@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import 'mocha';
-import weatherTypes from '../models/weatherTypes';
-import {WeatherController} from '../controllers/weatherController';
+import weatherTypes from '../src/models/weatherTypes';
+import {WeatherController} from '../src/controllers/weatherController';
 import { response, request } from 'express';
 
 describe("Testing weather controller", function () {

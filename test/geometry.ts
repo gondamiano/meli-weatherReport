@@ -1,8 +1,8 @@
 import {expect} from 'chai';
 import 'mocha';
-import weatherTypes from '../models/weatherTypes';
-import { isStraightLine, heronFormula } from '../utils/geometry';
-import { getPlanetArrayForDrought, getPlanetArrayForRain } from '../dummy/planetDummy';
+import weatherTypes from '../src/models/weatherTypes';
+import { isStraightLine, heronFormula } from '../src/utils/geometry';
+import { getPlanetArrayForDrought, getPlanetArrayForRain } from '../src/dummy/planetDummy';
 
 describe('Testing geometry', function() {
     it('Should return true for straigth line with the sun', function() {

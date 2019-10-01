@@ -4,28 +4,19 @@ import express, { Request, Response } from 'express';
 var agent = require('@google-cloud/debug-agent').start();
 var server = express();
 import "reflect-metadata";
-import {WeatherController} from './controllers/weatherController';
+import {WeatherController} from './src/controllers/weatherController';
 import { createConnection } from 'typeorm';
-import solarSystem from './models/solarSystem';
+import predictionJob from './src/schedule/predictionJob';
+import { ReportController } from './src/controllers/reportController';
 
 const PORT = process.env.PORT || 8080;
 
 
-server.get('/', (req :Request, res: Response) => {
-    res.sendStatus(200);
-});
-
-server.get('/predict', (req: Request, res: Response) => {
-    const result = solarSystem.startPrediction(10);
-    if(result) {
-        res.send("OK");
-    }
-    else {
-        res.send("FAIL");
-    }
-})
+server.get('/predict', predictionJob.calculate);
 
 server.get('/clima', WeatherController.getWeatherByDay);
+
+server.get('/report', ReportController.getFinalReport);
 
 createConnection().then(conn => {        
     console.log("successful Database Connection");    

@@ -7,25 +7,16 @@ const express_1 = __importDefault(require("express"));
 var agent = require('@google-cloud/debug-agent').start();
 var server = express_1.default();
 require("reflect-metadata");
-const weatherController_1 = require("./controllers/weatherController");
+const weatherController_1 = require("./src/controllers/weatherController");
 const typeorm_1 = require("typeorm");
-const solarSystem_1 = __importDefault(require("./models/solarSystem"));
+const predictionJob_1 = __importDefault(require("./src/schedule/predictionJob"));
+const reportController_1 = require("./src/controllers/reportController");
 const PORT = process.env.PORT || 8080;
-server.get('/', (req, res) => {
-    res.send('hello world');
-});
-server.get('/predict', (req, res) => {
-    const result = solarSystem_1.default.startPrediction(10);
-    if (result) {
-        res.send("OK");
-    }
-    else {
-        res.send("FAIL");
-    }
-});
+server.get('/predict', predictionJob_1.default.calculate);
 server.get('/clima', weatherController_1.WeatherController.getWeatherByDay);
+server.get('/report', reportController_1.ReportController.getFinalReport);
 typeorm_1.createConnection().then(conn => {
-    console.log("Connection to database succesfull");
+    console.log("successful Database Connection");
     server.listen(PORT, function () {
         console.log(`Server listen at ${PORT} port`);
     });

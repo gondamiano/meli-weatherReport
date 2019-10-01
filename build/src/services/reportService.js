@@ -12,34 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const weatherReport_1 = __importDefault(require("../models/weatherReport"));
 const typeorm_1 = require("typeorm");
+const report_1 = __importDefault(require("../models/report"));
 class weatherReportService {
     constructor() {
     }
-    getWeather(day) {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
-            const report = yield this.repository.findOne({
-                select: ["_day", "weatherType"],
-                where: {
-                    _day: day
-                }
-            });
-            if (report != null || report != undefined) {
-                return report;
-            }
-            else {
-                throw new Error("No report for that specific day");
-            }
-        });
-    }
     save(report) {
         return __awaiter(this, void 0, void 0, function* () {
-            this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
-            this.repository.save(report)
-                .then((result) => { return result; })
-                .catch((err) => { throw err; });
+            this.repository = typeorm_1.getConnection().getRepository(report_1.default);
+            this.repository.save(report).then(() => {
+                console.log('saved correctly');
+                return true;
+            }).catch(err => {
+                console.log('error');
+                throw err;
+            });
+        });
+    }
+    getAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.repository = typeorm_1.getConnection().getRepository(report_1.default);
+            let reports = yield this.repository.find();
+            if (reports != undefined) {
+                return reports;
+            }
+            else {
+                throw new Error;
+            }
         });
     }
 }
