@@ -24,6 +24,11 @@ $ npm install
 
 Se debe modificar el archivo ormconfig.json para setear la conexion a la base de datos
 
+
+```sh
+$ npm start
+```
+
 Test API
 
 ```sh
