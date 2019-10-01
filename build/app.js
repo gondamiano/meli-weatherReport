@@ -4,8 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-////  depurador para app engine
-var agent = require('@google-cloud/debug-agent').start();
 var server = express_1.default();
 require("reflect-metadata");
 const weatherController_1 = require("./src/controllers/weatherController");
@@ -19,6 +17,8 @@ server.get('/predict', predictionJob_1.default.calculate);
 server.get('/clima', weatherController_1.WeatherController.getWeatherByDay);
 //// devuelve el reporte de los periodos
 server.get('/report', reportController_1.ReportController.getFinalReport);
+/// para que el schedule job sea testeado
+server.get('/run', predictionJob_1.default.run);
 typeorm_1.createConnection().then(conn => {
     console.log("successful Database Connection");
     server.listen(PORT, function () {

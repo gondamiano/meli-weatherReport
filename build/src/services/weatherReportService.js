@@ -50,7 +50,6 @@ class weatherReportService {
     //// insert or update de todos los reportes a la vez.
     saveAll(reports) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("estamos aca : " + reports.length);
             this.repository = typeorm_1.getConnection().getRepository(weatherReport_1.default);
             this.repository.save(reports)
                 .then((result) => { return result; })

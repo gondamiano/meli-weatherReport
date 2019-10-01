@@ -49,6 +49,17 @@ class predictionJob {
             return false;
         }
     }
+    run(req, res) {
+        let result = solarSystem_1.default.startPrediction(10);
+        if (result) {
+            console.log("Prediction successful. Database updated.");
+            res.sendStatus(200);
+        }
+        else {
+            console.log("Prediction failed. try again next year, haha.");
+            res.sendStatus(400);
+        }
+    }
 }
 ;
 exports.default = new predictionJob;
