@@ -27,11 +27,11 @@ class weatherController {
                     try {
                         const report = yield weatherReportService_1.default.getWeather(day);
                         const response = exports.WeatherController.generateReportForResponse(report);
-                        res.send(JSON.stringify(response));
+                        return res.send(JSON.stringify(response));
                     }
                     catch (err) {
                         console.log(err);
-                        res.send(err);
+                        return res.send(err);
                     }
                 }
                 return res.sendStatus(400);
