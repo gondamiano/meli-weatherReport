@@ -1,8 +1,8 @@
 import {expect} from 'chai';
 import 'mocha';
-import WeatherPrediction from '../report/weatherPrediction';
-import { getPlanetArrayForDrought, getPlanetArrayForOptimum, getPlanetArrayForRain } from '../dummy/planetDummy';
-import weatherTypes from '../models/weatherTypes';
+import WeatherPrediction from '../src/report/weatherPrediction';
+import { getPlanetArrayForDrought, getPlanetArrayForOptimum, getPlanetArrayForRain } from '../src/dummy/planetDummy';
+import weatherTypes from '../src/models/weatherTypes';
 
 describe('testing prediction', function() {
         it("should return DROUGHT", function() {

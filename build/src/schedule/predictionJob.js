@@ -12,40 +12,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const solarSystem_1 = __importDefault(require("../models/solarSystem"));
 const weatherReportService_1 = __importDefault(require("../services/weatherReportService"));
-const logger_1 = __importDefault(require("../utils/logger"));
-class weatherController {
-    constructor() {
-        this.weatherService = weatherReportService_1.default;
-    }
-    getWeatherByDay(req, res) {
+class predictionJob {
+    calculate(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (req.query && req.query.dia) {
-                let day = req.query.dia;
-                day = parseInt(day);
-                if (day > 0) {
-                    try {
-                        const report = yield weatherReportService_1.default.getWeather(day);
-                        res.send(JSON.stringify(report));
-                    }
-                    catch (err) {
-                        res.sendStatus(404);
-                    }
+            let report = yield weatherReportService_1.default.getLastUpdate();
+            if (report != undefined && predictionJob.isTheRightTime(report)) {
+                let result = solarSystem_1.default.startPrediction(10);
+                if (result) {
+                    console.log("Prediction successful. Database updated.");
+                    res.sendStatus(200);
+                }
+                else {
+                    console.log("Prediction failed. try again next year, haha.");
+                    res.sendStatus(400);
                 }
             }
             else {
-                return new Error("missing query");
+                console.log("is not the right time");
+                res.sendStatus(404);
             }
         });
     }
-    saveReports(reports) {
-        reports.forEach(report => {
-            let info = this.weatherService.save(report);
-        });
-        logger_1.default.log("All reports were saved.");
-    }
-    save(report) {
-        this.weatherService.save(report);
+    static isTheRightTime(report) {
+        let date = report.updated_date;
+        let actualDate = new Date;
+        date.setFullYear(date.getFullYear() + 10);
+        if (date < actualDate) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
-exports.default = new weatherController();
+;
+exports.default = new predictionJob;

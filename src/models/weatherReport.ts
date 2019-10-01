@@ -5,7 +5,7 @@ import {Entity, Column, PrimaryColumn} from 'typeorm';
 class WeatherReport {        
     
     @PrimaryColumn()
-    private _day: number = 0;
+    public day: number = 0;
 
     @Column()
     public weatherType !: string;
@@ -16,13 +16,8 @@ class WeatherReport {
     @Column('double')
     public perimeter : number = 0;
 
-    set day(val : number) {
-        this._day = val;
-    }
-
-    get day() {
-        return this._day;
-    }
+    @Column("datetime")
+    public updated_date : Date = new Date();
 
     setWeatherType(weatherType: weatherTypes): void {        
         this.weatherType = weatherType;

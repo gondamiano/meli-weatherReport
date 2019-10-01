@@ -1,9 +1,27 @@
 runtime: nodejs10
 
+manual_scaling:
+  instances: 1
+
 handlers:
+- url: /favicon.ico
+  static_files: static/favicon.ico
+  upload: static/favicon.ico
+
 - url: /
   static_files: static/index.html
   upload: static/index.html
 
-- url: /.*
-  script: auto
+
+env_variables:
+  SQL_USER: "USERNAME"
+  SQL_PASSWORD: "PASSWORD"
+  SQL_DATABASE: "DATABASE"  
+  INSTANCE_CONNECTION_NAME: "INSTANCE"
+
+# [END gae_flex_mysql_env]
+
+beta_settings:
+  # The connection name of your instance, available by using
+  # 'gcloud beta sql instances describe [INSTANCE_NAME]'.
+  cloud_sql_instances: "INSTANCE"

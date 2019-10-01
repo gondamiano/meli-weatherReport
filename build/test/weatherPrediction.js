@@ -5,9 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 require("mocha");
-const weatherPrediction_1 = __importDefault(require("../report/weatherPrediction"));
-const planetDummy_1 = require("../dummy/planetDummy");
-const weatherTypes_1 = __importDefault(require("../models/weatherTypes"));
+const weatherPrediction_1 = __importDefault(require("../src/report/weatherPrediction"));
+const planetDummy_1 = require("../src/dummy/planetDummy");
+const weatherTypes_1 = __importDefault(require("../src/models/weatherTypes"));
 describe('testing prediction', function () {
     it("should return DROUGHT", function () {
         let arr = planetDummy_1.getPlanetArrayForDrought();

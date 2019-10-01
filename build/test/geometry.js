@@ -2,8 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chai_1 = require("chai");
 require("mocha");
-const geometry_1 = require("../utils/geometry");
-const planetDummy_1 = require("../dummy/planetDummy");
+const geometry_1 = require("../src/utils/geometry");
+const planetDummy_1 = require("../src/dummy/planetDummy");
 describe('Testing geometry', function () {
     it('Should return true for straigth line with the sun', function () {
         let res = planetDummy_1.getPlanetArrayForDrought();

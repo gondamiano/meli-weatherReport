@@ -1,6 +1,5 @@
 import weatherReportService from '../services/weatherReportService';
 import WeatherReport from '../models/weatherReport';
-import Logger from '../utils/logger';
 import { Request, Response, response } from 'express';
 
 class weatherController {
@@ -13,14 +12,17 @@ class weatherController {
             let day = req.query.dia;
             day = parseInt(day);            
             if(day > 0) {
-                try {
-                    const report : any = await weatherReportService.getWeather(day);
-                    res.send(JSON.stringify(report));
+                try {                                        
+                    const report : any = await weatherReportService.getWeather(day);                    
+                    const response = WeatherController.generateReportForResponse(report);
+                    res.send(JSON.stringify(response));
                 }
                 catch(err) {
-                    res.sendStatus(404);
+                    console.log(err);
+                    res.send(err);
                 }
             }
+            return res.sendStatus(400);
         }
         else {
             return new Error("missing query");
@@ -31,13 +33,19 @@ class weatherController {
         reports.forEach(report => {
             let info = this.weatherService.save(report);
         })
-        Logger.log("All reports were saved.");
+        console.log("All reports were saved.");
     }
 
     save(report: WeatherReport) {
         this.weatherService.save(report);
     }
 
+    generateReportForResponse(report : any) {
+        if(report.day != undefined && report.weatherType != undefined) 
+            return {dia: report.day, clima: report.weatherType};
+        else throw Error;
+    }
+
 }
 
-export default new weatherController();
+export const WeatherController = new weatherController();
