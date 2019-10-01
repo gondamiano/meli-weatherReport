@@ -2,7 +2,7 @@
 En una galaxia lejana, existen tres civilizaciones. Vulcanos Ferengis y Betasoides. Cada civilización vive en paz en su respectivo planeta. Dominan la predicción del clima mediante un complejo sistema informático
 
 # Suposiciones
-El programa comienza en el día 0. cada planeta desde su eje X en 0.
+El programa comienza en el día 0. cada planeta desde su eje Y en 0.
 Se tomo al planeta Ferengi de referencia para establecer la cantidad de dias (360) en un año.
 Un "período" es cualquier periodo de tiempo que mantenga el mismo clima durante 1 o más días.
 Los climas "Lluvia" y "Lluvia intensa" se consideran están en un mismo período.
@@ -17,6 +17,13 @@ Las condiciones óptimas de presión y temperatura se dan cuando los tres planet
 ```sh
 $ git clone https://github.com/gondamiano/meli-weatherReport.git
 ```
+Luego:
+
+```sh
+$ npm install
+```
+
+Se debe modificar el archivo ormconfig.json para setear la conexion a la base de datos
 
 Test API
 
