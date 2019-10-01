@@ -5,7 +5,6 @@ En una galaxia lejana, existen tres civilizaciones. Vulcanos Ferengis y Betasoid
 El programa comienza en el día 0. cada planeta desde su eje Y en 0.
 Se tomo al planeta Ferengi de referencia para establecer la cantidad de dias (360) en un año.
 Un "período" es cualquier periodo de tiempo que mantenga el mismo clima durante 1 o más días.
-Los climas "Lluvia" y "Lluvia intensa" se consideran están en un mismo período.
 
 # Clima
 Cuando los tres planetas están alineados entre sí y a su vez alineados con respecto al sol, el sistema solar experimenta un período de sequía
