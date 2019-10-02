@@ -22,7 +22,7 @@ class predictionJob {
         return __awaiter(this, void 0, void 0, function* () {
             let report = yield weatherReportService_1.default.getLastUpdate();
             if (report != undefined && predictionJob.isTheRightTime(report)) {
-                let result = solarSystem_1.default.startPrediction(10);
+                let result = solarSystem_1.default.startPrediction(predictionJob.PREDICTION_TIME);
                 if (result) {
                     console.log("Prediction successful. Database updated.");
                     res.sendStatus(200);
@@ -41,7 +41,7 @@ class predictionJob {
     static isTheRightTime(report) {
         let date = report.updated_date;
         let actualDate = new Date;
-        date.setFullYear(date.getFullYear() + 10);
+        date.setFullYear(date.getFullYear() + predictionJob.PREDICTION_TIME);
         if (date < actualDate) {
             return true;
         }
@@ -50,7 +50,7 @@ class predictionJob {
         }
     }
     run(req, res) {
-        let result = solarSystem_1.default.startPrediction(10);
+        let result = solarSystem_1.default.startPrediction(predictionJob.PREDICTION_TIME);
         if (result) {
             console.log("Prediction successful. Database updated.");
             res.sendStatus(200);
@@ -61,5 +61,6 @@ class predictionJob {
         }
     }
 }
+predictionJob.PREDICTION_TIME = 10;
 ;
 exports.default = new predictionJob;
