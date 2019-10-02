@@ -6,12 +6,14 @@ import weatherReportService from '../services/weatherReportService';
 //// clase para correr el schedule job
 class predictionJob {
 
+    private static PREDICTION_TIME: number = 10;
+
     //// debido a que app engine no tiene opcion de setear un schedule cada 10 años ,(el maximo es 1 al año)
     //// esta funcion compara entre la fecha de la ultima prediccion con la fecha actual
     async calculate(req: Request, res: Response) {
         let report = await weatherReportService.getLastUpdate();
         if(report != undefined && predictionJob.isTheRightTime(report))  {            
-             let result = solarSystem.startPrediction(10);
+             let result = solarSystem.startPrediction(predictionJob.PREDICTION_TIME);
              if(result) {
                  console.log("Prediction successful. Database updated.")
                  res.sendStatus(200);
@@ -32,7 +34,7 @@ class predictionJob {
         let date : Date = report.updated_date;
         let actualDate : Date = new Date;
 
-        date.setFullYear(date.getFullYear() + 10);
+        date.setFullYear(date.getFullYear() + predictionJob.PREDICTION_TIME);
         if(date < actualDate) {
             return true;
         }
@@ -42,7 +44,7 @@ class predictionJob {
     }
 
     run(req: Request, res: Response) {
-        let result = solarSystem.startPrediction(10);
+        let result = solarSystem.startPrediction(predictionJob.PREDICTION_TIME);
              if(result) {
                  console.log("Prediction successful. Database updated.")
                  res.sendStatus(200);
